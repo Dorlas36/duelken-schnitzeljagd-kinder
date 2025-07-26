@@ -2,75 +2,89 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>🔢 Rätsel 3 – Station 2: St. Cornelius Kirche</title>
+  <title>🔢 Rätsel 3 – St. Cornelius Kirche</title>
   <style>
-    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
-    h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    p { margin: 0.5rem 0; }
-    input, button { width: 100%; box-sizing: border-box; font-size: 1rem; padding: 0.6rem; margin-top: 0.5rem; }
-    button { cursor: pointer; background: #007ACC; color: #fff; border: none; border-radius: 4px; }
-    #hintBtn { background: #555; }
-    #feedback { color: crimson; margin-top: 0.5rem; }
-    #hints { display: none; margin-top: 1rem; background: #f0f8ff; padding: 1rem; border-radius: 4px; }
-    #hints p { margin: 0.5rem 0; }
-    #solutionBtn { display: none; background: #28a745; margin-top: 0.5rem; }
+    body {
+      background: #f3e5f5;
+      font-family: 'Comic Sans MS', sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      color: #4a148c;
+    }
+    h1 {
+      text-align: center;
+      color: #6a1b9a;
+      font-size: 2rem;
+    }
+    p { font-size: 1.2rem; }
+    input, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    input { border: 2px solid #ba68c8; }
+    button {
+      background: #ba68c8;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #hintBtn {
+      background: #fff59d;
+      border: 2px solid #fdd835;
+      color: #3e2723;
+    }
+    #hints p {
+      background: #fffde7;
+      padding: 0.5rem;
+      border-radius: 6px;
+      margin-top: 0.3rem;
+    }
+    #feedback {
+      color: #d32f2f;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-
-  <h2>🔢 Rätsel 3 – Station 2: St. Cornelius Kirche</h2>
-  <p><strong>Aufgabe:</strong><br>
-     Addiere alle römischen Zahlen von I bis XII auf der Turmuhr.</p>
-
-  <!-- Eingabefeld zur Lösung -->
+  <h1>🔢 Rätsel 3</h1>
+  <p><strong>Aufgabe:</strong> Addiere alle römischen Zahlen I–XII auf der Kirchturmuhr.</p>
   <input id="answer" type="number" placeholder="Deine Summe">
   <button id="check">Antwort prüfen</button>
   <button id="hintBtn">Nächster Tipp</button>
   <div id="feedback"></div>
-
-  <!-- Tipps und Lösung -->
-  <div id="hints">
-    <p><strong>🔍 Tipps:</strong></p>
-    <ol>
-      <li>I = 1, V = 5, X = 10.</li>
-      <li>Zähle jede Ziffer von I bis XII.</li>
-      <li>Vergiss nicht, XII als 12 hinzuzufügen.</li>
-    </ol>
-  </div>
-  <button id="solutionBtn">Lösung anzeigen</button>
+  <div id="hints" style="display:none;"></div>
 
   <script>
-    const hintsDiv = document.getElementById('hints');
-    const hintBtn = document.getElementById('hintBtn');
-    const solutionBtn = document.getElementById('solutionBtn');
-    let hintIndex = 0;
-    // Verstecke alle Tipps initial
-    Array.from(hintsDiv.querySelectorAll('ol li')).forEach(li => li.style.display = 'none');
+    const tips2 = [
+      "I = 1, V = 5, X = 10.",
+      "Zähle jede Ziffer von I bis XII.",
+      "Vergiss nicht, XII als 12 dazuzuzählen."
+    ];
+    let k = 0;
 
     document.getElementById('check').onclick = () => {
-      const ans = document.getElementById('answer').value.trim();
-      if (ans === '78') {
+      const val = document.getElementById('answer').value.trim();
+      if (val === '78') {
         window.location.href = 'station3.html';
       } else {
-        document.getElementById('feedback').textContent = 'Leider falsch – versuche es noch einmal!';
+        document.getElementById('feedback').textContent = 'Oh, noch nicht ganz richtig!';
       }
     };
 
-    hintBtn.onclick = () => {
-      const tips = hintsDiv.querySelectorAll('ol li');
-      if (hintIndex < tips.length) {
-        tips[hintIndex].style.display = 'list-item';
-        hintIndex++;
-        if (hintIndex === tips.length) {
-          solutionBtn.style.display = 'block';
-        }
+    document.getElementById('hintBtn').onclick = () => {
+      if (k < tips2.length) {
+        const div = document.getElementById('hints');
+        div.style.display = 'block';
+        const p = document.createElement('p');
+        p.textContent = '🔍 Tipp ' + (k + 1) + ': ' + tips2[k++];
+        div.appendChild(p);
       }
-    };
-
-    solutionBtn.onclick = () => {
-      alert('➡️ Lösung: 78');
     };
   </script>
-
 </body>
 </html>
