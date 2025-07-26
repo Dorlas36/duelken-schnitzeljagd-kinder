@@ -2,68 +2,88 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <title>🔢 Rätsel 4 – Station 3: Alte Käsehalle</title>
+  <title>🔢 Rätsel 4 – Alte Käsehalle</title>
   <style>
-    body { font-family: Arial, sans-serif; max-width: 640px; margin: 2rem auto; padding: 1rem; color: #333; }
-    h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-    p { margin: 0.5rem 0; }
-    input, button { width: 100%; box-sizing: border-box; font-size: 1rem; padding: 0.6rem; margin-top: 0.5rem; }
-    button { cursor: pointer; background: #007ACC; color: #fff; border: none; border-radius: 4px; }
-    #hintBtn { background: #555; }
-    #feedback { color: crimson; margin-top: 0.5rem; }
-    #hints { margin-top: 1rem; background: #f0f8ff; padding: 1rem; border-radius: 4px; display: none; }
-    #solutionBtn { display: none; background: #28a745; margin-top: 0.5rem; }
+    body {
+      background: #fff3e0;
+      font-family: 'Comic Sans MS', sans-serif;
+      max-width: 600px;
+      margin: 2rem auto;
+      padding: 1rem;
+      color: #bf360c;
+    }
+    h1 {
+      text-align: center;
+      color: #e64a19;
+      font-size: 2rem;
+    }
+    p { font-size: 1.2rem; }
+    input, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      border-radius: 8px;
+      box-sizing: border-box;
+    }
+    input { border: 2px solid #ffab91; }
+    button {
+      background: #ffab91;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #hintBtn {
+      background: #fff59d;
+      border: 2px solid #fdd835;
+      color: #3e2723;
+    }
+    #hints p {
+      background: #ffff8d;
+      padding: 0.5rem;
+      border-radius: 6px;
+      margin-top: 0.3rem;
+    }
+    #feedback {
+      color: #d32f2f;
+      margin-top: 0.5rem;
+    }
   </style>
 </head>
 <body>
-
-  <h2>🔢 Rätsel 4 – Station 3: Alte Käsehalle</h2>
-  <p><strong>Aufgabe:</strong><br>
-     Zähle die Buchstaben des Wortes "Käse".</p>
-
-  <input id="answer" type="number" placeholder="Deine Lösung">
+  <h1>🔢 Rätsel 4</h1>
+  <p><strong>Aufgabe:</strong> Zähle die Buchstaben des Wortes „Käse“.</p>
+  <input id="answer" type="number" placeholder="Deine Antwort">
   <button id="check">Antwort prüfen</button>
   <button id="hintBtn">Nächster Tipp</button>
   <div id="feedback"></div>
-
-  <div id="hints"></div>
-  <button id="solutionBtn">Lösung anzeigen</button>
+  <div id="hints" style="display:none;"></div>
 
   <script>
-    const tips = [
+    const tips3 = [
       "Das Wort hat einen Umlaut.",
-      "Berücksichtige jeden Buchstaben einzeln.",
-      "Die Anzahl entspricht den Ecken eines Quadrats."
+      "Jeder Buchstabe zählt einzeln.",
+      "Es sind so viele wie die Ecken eines Quadrats."
     ];
-    let tipIndex = 0;
+    let l = 0;
 
     document.getElementById('check').onclick = () => {
-      const ans = document.getElementById('answer').value.trim();
-      if (ans === '4') {
+      if (document.getElementById('answer').value.trim() === '4') {
         window.location.href = 'station4.html';
       } else {
-        document.getElementById('feedback').textContent = 'Leider falsch – versuche es noch einmal!';
+        document.getElementById('feedback').textContent = 'Fast, probier’s nochmal!';
       }
     };
 
     document.getElementById('hintBtn').onclick = () => {
-      if (tipIndex < tips.length) {
+      if (l < tips3.length) {
         const div = document.getElementById('hints');
         div.style.display = 'block';
         const p = document.createElement('p');
-        p.textContent = `🔍 Tipp ${tipIndex+1}: ${tips[tipIndex]}`;
+        p.textContent = '🔍 Tipp ' + (l + 1) + ': ' + tips3[l++];
         div.appendChild(p);
-        tipIndex++;
-        if (tipIndex === tips.length) {
-          document.getElementById('solutionBtn').style.display = 'block';
-        }
       }
     };
-
-    document.getElementById('solutionBtn').onclick = () => {
-      alert('➡️ Lösung: 4');
-    };
   </script>
-
 </body>
 </html>
