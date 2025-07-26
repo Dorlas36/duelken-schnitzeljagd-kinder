@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🔢 Rätsel 3 – Station 2: St. Cornelius Kirche</title>
+  <style>
+    body { font-family: sans-serif; max-width: 600px; margin: 2rem auto; padding: 1rem; }
+    h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    p { margin: 0.5rem 0; }
+    input, button { width: 100%; box-sizing: border-box; font-size: 1rem; padding: 0.6rem; margin-top: 0.5rem; }
+    button { cursor: pointer; background: #007ACC; color: #fff; border: none; border-radius: 4px; }
+    #hintBtn { background: #555; }
+    #feedback { color: crimson; margin-top: 0.5rem; }
+    #hints { display: none; margin-top: 1rem; background: #f0f8ff; padding: 1rem; border-radius: 4px; }
+    #hints p { margin: 0.5rem 0; }
+    #solutionBtn { display: none; background: #28a745; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <h2>🔢 Rätsel 3 – Station 2: St. Cornelius Kirche</h2>
+  <p><strong>Aufgabe:</strong><br>
+     Addiere alle römischen Zahlen von I bis XII auf der Turmuhr.</p>
+
+  <!-- Eingabefeld zur Lösung -->
+  <input id="answer" type="number" placeholder="Deine Summe">
+  <button id="check">Antwort prüfen</button>
+  <button id="hintBtn">Nächster Tipp</button>
+  <div id="feedback"></div>
+
+  <!-- Tipps und Lösung -->
+  <div id="hints">
+    <p><strong>🔍 Tipps:</strong></p>
+    <ol>
+      <li>I = 1, V = 5, X = 10.</li>
+      <li>Zähle jede Ziffer von I bis XII.</li>
+      <li>Vergiss nicht, XII als 12 hinzuzufügen.</li>
+    </ol>
+  </div>
+  <button id="solutionBtn">Lösung anzeigen</button>
+
+  <script>
+    const hintsDiv = document.getElementById('hints');
+    const hintBtn = document.getElementById('hintBtn');
+    const solutionBtn = document.getElementById('solutionBtn');
+    let hintIndex = 0;
+    // Verstecke alle Tipps initial
+    Array.from(hintsDiv.querySelectorAll('ol li')).forEach(li => li.style.display = 'none');
+
+    document.getElementById('check').onclick = () => {
+      const ans = document.getElementById('answer').value.trim();
+      if (ans === '78') {
+        window.location.href = 'station3.html';
+      } else {
+        document.getElementById('feedback').textContent = 'Leider falsch – versuche es noch einmal!';
+      }
+    };
+
+    hintBtn.onclick = () => {
+      const tips = hintsDiv.querySelectorAll('ol li');
+      if (hintIndex < tips.length) {
+        tips[hintIndex].style.display = 'list-item';
+        hintIndex++;
+        if (hintIndex === tips.length) {
+          solutionBtn.style.display = 'block';
+        }
+      }
+    };
+
+    solutionBtn.onclick = () => {
+      alert('➡️ Lösung: 78');
+    };
+  </script>
+
+</body>
+</html>

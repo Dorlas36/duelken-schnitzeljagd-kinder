@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🔢 Rätsel 1 – Narrenmühle</title>
+  <style>
+    body { background:#e8f5e9; font-family:'Comic Sans MS',sans-serif; max-width:600px; margin:2rem auto; padding:1rem; }
+    h1 { color:#2e7d32; text-align:center; font-size:2rem; }
+    p { font-size:1.2rem; color:#1b5e20; }
+    input, button { width:100%; padding:0.8rem; font-size:1.1rem; margin:0.5rem 0; border-radius:8px; border:2px solid #66bb6a; }
+    button { background:#66bb6a; color:white; cursor:pointer; }
+    button:hover { background:#81c784; }
+    #hintBtn { background:#ffeb3b; border-color:#fdd835; }
+    #hints p { background:#fffde7; padding:0.5rem; border-radius:6px; }
+  </style>
+</head>
+<body>
+  <h1>🔢 Rätsel 1 – Narrenmühle</h1>
+  <p><strong>Aufgabe:</strong> Wie heißt das bunte Karnevals-Wahrzeichen mit den Flügeln?</p>
+  <input id="answer" placeholder="Deine Antwort hier">
+  <button id="check">Antwort prüfen</button>
+  <button id="hintBtn">Nächster Tipp</button>
+  <div id="feedback" style="color:#d32f2f;"></div>
+  <div id="hints" style="display:none;"></div>
+<script>
+const tips = [
+  "Es mahlt nicht Korn, sondern Frohsinn!",
+  "Alle Jecken tanzen dort umher.",
+  "Im Namen steht das Wort 'Mühle'."
+];
+let i=0;
+document.getElementById('check').onclick = () => {
+  let ans=document.getElementById('answer').value.trim().toLowerCase();
+  if(ans==='narrenmühle'||ans==='narrenmuehle') location.href='station1.html';
+  else document.getElementById('feedback').textContent='Ups, das passt nicht. Versuch’s nochmal!';
+};
+document.getElementById('hintBtn').onclick = () => {
+  if(i<tips.length){
+    let div=document.getElementById('hints'); div.style.display='block';
+    let p=document.createElement('p'); p.textContent='🔍 Tipp '+(i+1)+': '+tips[i++];
+    div.appendChild(p);
+  }
+};
+</script>
+</body>
+</html>

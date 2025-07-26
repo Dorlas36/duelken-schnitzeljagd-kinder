@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>📋 Schnitzeljagd Ergebnisse</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+      color: #333;
+      background: #f9fbe7;
+    }
+    h2 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #33691e;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 0.5rem;
+      text-align: left;
+    }
+    th {
+      background: #c5e1a5;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+    }
+    .delBtn {
+      background: #e53935;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📋 Schnitzeljagd Ergebnisse</h2>
+
+  <table id="resultsTable">
+    <thead>
+      <tr><th>Name</th><th>Zeit</th><th>Aktion</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    // Admin-Passwort (bitte ändern)
+    const adminPass = 'DEIN_PASSWORT';
+
+    // Scores aus localStorage laden
+    let scores = JSON.parse(localStorage.getItem('duelken_scores') || '[]');
+    const tbody = document.querySelector('#resultsTable tbody');
+
+    // Tabelle rendern
+    function render() {
+      tbody.innerHTML = '';
+      scores.forEach((e, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${e.name}</td>
+          <td>${e.time}</td>
+          <td><button class="delBtn" data-index="${i}">Löschen</button></td>
+        `;
+        tbody.appendChild(tr);
+      });
+      attachDelete();
+    }
+
+    // Delete-Buttons mit Passwort-Abfrage
+    function attachDelete() {
+      tbody.querySelectorAll('.delBtn').forEach(btn => {
+        btn.onclick = () => {
+          const pw = prompt('Admin-Passwort eingeben:');
+          if (pw === adminPass) {
+            const idx = parseInt(btn.dataset.index, 10);
+            scores.splice(idx, 1);
+            localStorage.setItem('duelken_scores', JSON.stringify(scores));
+            render();
+          } else {
+            alert('Keine Berechtigung zum Löschen');
+          }
+        };
+      });
+    }
+
+    // Initial render
+    render();
+  </script>
+
+</body>
+</html>
