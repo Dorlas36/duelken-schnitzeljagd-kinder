@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🎉 Rätsel 0 – Alter Markt</title>
+  <style>
+    body { background: #fff3e0; font-family: 'Comic Sans MS', sans-serif; max-width:600px; margin:2rem auto; padding:1rem; }
+    h1 { color: #e65100; text-align:center; font-size:2rem; }
+    p { font-size:1.2rem; color:#5d4037; }
+    button { display:block; width:100%; padding:1rem; margin:0.5rem 0; font-size:1.1rem; border-radius:8px; border:2px dashed #e65100; background:#ffe0b2; cursor:pointer; }
+    button:hover { background:#ffd8a3; }
+  </style>
+</head>
+<body>
+  <h1>🎉 Willkommen!</h1>
+  <p>Du bist jetzt am <strong>Alter Markt</strong> mit seinem schönen Brunnen!</p>
+  <p>Magst du deine Zeit messen?<br><em>Der Timer hilft dir zu sehen, wie flink du bist!</em></p>
+  <button onclick="localStorage.setItem('duelken_startTime', Date.now()); localStorage.setItem('duelken_timerEnabled','true'); window.location.href='start.html'">👍 Ja, Timer starten</button>
+  <button onclick="localStorage.setItem('duelken_timerEnabled','false'); window.location.href='start.html'">👎 Nein, ohne Timer starten</button>
+</body>
+</html>
