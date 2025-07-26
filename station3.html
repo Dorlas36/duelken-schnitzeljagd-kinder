@@ -15,9 +15,13 @@
     h1 {
       text-align: center;
       color: #e64a19;
-      font-size: 2rem;
+      font-size: 2.25rem;
+      margin-bottom: 0.5rem;
     }
-    p { font-size: 1.2rem; }
+    p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
     input, button {
       width: 100%;
       padding: 0.8rem;
@@ -26,12 +30,17 @@
       border-radius: 8px;
       box-sizing: border-box;
     }
-    input { border: 2px solid #ffab91; }
+    input {
+      border: 3px dashed #ffab91;
+    }
     button {
       background: #ffab91;
       color: white;
       border: none;
       cursor: pointer;
+    }
+    button:hover {
+      background: #ff8a65;
     }
     #hintBtn {
       background: #fff59d;
@@ -46,13 +55,16 @@
     }
     #feedback {
       color: #d32f2f;
+      font-weight: bold;
       margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
+
   <h1>🔢 Rätsel 4</h1>
   <p><strong>Aufgabe:</strong> Zähle die Buchstaben des Wortes „Käse“.</p>
+
   <input id="answer" type="number" placeholder="Deine Antwort">
   <button id="check">Antwort prüfen</button>
   <button id="hintBtn">Nächster Tipp</button>
@@ -60,30 +72,31 @@
   <div id="hints" style="display:none;"></div>
 
   <script>
-    const tips3 = [
+    const tips = [
       "Das Wort hat einen Umlaut.",
       "Jeder Buchstabe zählt einzeln.",
-      "Es sind so viele wie die Ecken eines Quadrats."
+      "Es sind so viele wie die Ecken eines Vierecks."
     ];
-    let l = 0;
+    let idx = 0;
 
     document.getElementById('check').onclick = () => {
       if (document.getElementById('answer').value.trim() === '4') {
         window.location.href = 'station4.html';
       } else {
-        document.getElementById('feedback').textContent = 'Fast, probier’s nochmal!';
+        document.getElementById('feedback').textContent = 'Fast, noch ein Versuch!';
       }
     };
 
     document.getElementById('hintBtn').onclick = () => {
-      if (l < tips3.length) {
-        const div = document.getElementById('hints');
-        div.style.display = 'block';
+      if (idx < tips.length) {
+        const container = document.getElementById('hints');
+        container.style.display = 'block';
         const p = document.createElement('p');
-        p.textContent = '🔍 Tipp ' + (l + 1) + ': ' + tips3[l++];
-        div.appendChild(p);
+        p.textContent = '🔍 Tipp ' + (idx+1) + ': ' + tips[idx++];
+        container.appendChild(p);
       }
     };
   </script>
+
 </body>
 </html>
