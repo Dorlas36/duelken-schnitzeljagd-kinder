@@ -15,9 +15,13 @@
     h1 {
       text-align: center;
       color: #6a1b9a;
-      font-size: 2rem;
+      font-size: 2.25rem;
+      margin-bottom: 0.5rem;
     }
-    p { font-size: 1.2rem; }
+    p {
+      font-size: 1.2rem;
+      margin: 0.5rem 0;
+    }
     input, button {
       width: 100%;
       padding: 0.8rem;
@@ -26,12 +30,17 @@
       border-radius: 8px;
       box-sizing: border-box;
     }
-    input { border: 2px solid #ba68c8; }
+    input {
+      border: 3px dashed #ce93d8;
+    }
     button {
       background: #ba68c8;
       color: white;
       border: none;
       cursor: pointer;
+    }
+    button:hover {
+      background: #ab47bc;
     }
     #hintBtn {
       background: #fff59d;
@@ -46,13 +55,16 @@
     }
     #feedback {
       color: #d32f2f;
+      font-weight: bold;
       margin-top: 0.5rem;
     }
   </style>
 </head>
 <body>
+
   <h1>🔢 Rätsel 3</h1>
   <p><strong>Aufgabe:</strong> Addiere alle römischen Zahlen I–XII auf der Kirchturmuhr.</p>
+
   <input id="answer" type="number" placeholder="Deine Summe">
   <button id="check">Antwort prüfen</button>
   <button id="hintBtn">Nächster Tipp</button>
@@ -60,31 +72,32 @@
   <div id="hints" style="display:none;"></div>
 
   <script>
-    const tips2 = [
+    const tips = [
       "I = 1, V = 5, X = 10.",
-      "Zähle jede Ziffer von I bis XII.",
+      "Zähle jede einzelne Ziffer von I bis XII.",
       "Vergiss nicht, XII als 12 dazuzuzählen."
     ];
-    let k = 0;
+    let idx = 0;
 
     document.getElementById('check').onclick = () => {
       const val = document.getElementById('answer').value.trim();
       if (val === '78') {
         window.location.href = 'station3.html';
       } else {
-        document.getElementById('feedback').textContent = 'Oh, noch nicht ganz richtig!';
+        document.getElementById('feedback').textContent = 'Ups, noch nicht ganz! Versuch’s nochmal!';
       }
     };
 
     document.getElementById('hintBtn').onclick = () => {
-      if (k < tips2.length) {
-        const div = document.getElementById('hints');
-        div.style.display = 'block';
+      if (idx < tips.length) {
+        const container = document.getElementById('hints');
+        container.style.display = 'block';
         const p = document.createElement('p');
-        p.textContent = '🔍 Tipp ' + (k + 1) + ': ' + tips2[k++];
-        div.appendChild(p);
+        p.textContent = '🔍 Tipp ' + (idx+1) + ': ' + tips[idx++];
+        container.appendChild(p);
       }
     };
   </script>
+
 </body>
 </html>
