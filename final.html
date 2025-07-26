@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>🔢 Rätsel 6 – Finale: Spielplatz Schirickstraße</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:640px; margin:2rem auto; padding:1rem; color:#333; }
+    h2 { font-size:1.5rem; margin-bottom:.5rem; }
+    #timeDisplay { font-size:1.2rem; margin-bottom:1rem; }
+    form, table { width:100%; margin-top:1rem; }
+    label { display:block; margin:0.5rem 0; }
+    input[type="text"] { width:100%; padding:.6rem; font-size:1rem; box-sizing:border-box; }
+    button { width:100%; padding:.6rem; font-size:1rem; margin-top:.5rem; border:none; border-radius:4px; background:#007ACC; color:#fff; cursor:pointer; }
+    table { border-collapse:collapse; margin-top:1rem; width:100%; }
+    th, td { border:1px solid #ccc; padding:.5rem; text-align:left; }
+    th { background:#f4f4f4; }
+    .delBtn { background:#dc3545; margin-left:.5rem; }
+  </style>
+</head>
+<body>
+
+  <h2>🔢 Rätsel 6 – Finale: Spielplatz Schirickstraße</h2>
+  <div id="timeDisplay">Deine Zeit: …</div>
+
+  <form id="scoreForm">
+    <label>
+      Dein Name (optional):
+      <input type="text" id="playerName" placeholder="Pseudonym oder Name">
+    </label>
+    <label>
+      Zeit (kann angepasst werden):
+      <input type="text" id="playerTime" readonly>
+    </label>
+    <button type="submit">Eintragen (freiwillig)</button>
+  </form>
+
+  <table id="resultsTable">
+    <thead>
+      <tr><th>Name</th><th>Zeit</th><th>Aktion</th></tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+  (function() {
+    // 1) Timer ermitteln
+    let start = parseInt(localStorage.getItem('duelken_startTime'), 10);
+    if (isNaN(start)) start = Date.now();
+    const diff = Date.now() - start;
+    const mins = Math.floor(diff / 60000);
+    const secs = Math.floor((diff % 60000) / 1000);
+    const timeStr = mins + 'm ' + secs + 's';
+
+    // 2) Anzeige aktualisieren
+    document.getElementById('timeDisplay').textContent = 'Deine Zeit: ' + timeStr;
+    const timeInput = document.getElementById('playerTime');
+    timeInput.value = timeStr;
+
+    // 3) Daten laden & Tabelle rendern
+    let scores = JSON.parse(localStorage.getItem('duelken_scores') || '[]');
+    const tbody = document.querySelector('#resultsTable tbody');
+
+    function render() {
+      tbody.innerHTML = '';
+      scores.forEach((e, i) => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>${e.name}</td>
+          <td>${e.time}</td>
+          <td>
+            <button class="delBtn" data-index="${i}">Löschen</button>
+          </td>`;
+        tbody.appendChild(tr);
+      });
+      // Delete-Buttons
+      tbody.querySelectorAll('.delBtn').forEach(btn => {
+        btn.onclick = () => {
+          scores.splice(btn.dataset.index, 1);
+          localStorage.setItem('duelken_scores', JSON.stringify(scores));
+          render();
+        };
+      });
+    }
+    render();
+
+    // 4) Formular-Handling
+    document.getElementById('scoreForm').onsubmit = e => {
+      e.preventDefault();
+      const name = document.getElementById('playerName').value.trim() || '-';
+      const time = timeInput.value.trim();
+      if (!time) return;  // Zeit Pflicht
+      scores.push({ name, time });
+      localStorage.setItem('duelken_scores', JSON.stringify(scores));
+      render();
+      // Formular zurücksetzen aber Zeit behalten
+      document.getElementById('playerName').value = '';
+    };
+  })();
+  </script>
+
+</body>
+</html>
